@@ -56,7 +56,8 @@ async def _(e):
     if t.isdigit():
         t = int(t)
     elif t.endswith(("s", "h", "d", "m")):
-        t = ban_time(t)
+        LOGS.info(t)
+        t = ban_time(t.strip())
         if not isinstance(t, int):
             return await e.eor(t)
         t = math.ceil(t - time.time())
