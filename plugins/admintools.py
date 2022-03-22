@@ -255,7 +255,9 @@ async def tkicki(e):
     except Exception as ex:
         return await eor(e, f"`{ex}`")
     try:
-        bun = ban_time(e, tme)
+        bun = ban_time(tme)
+        if not isinstance(bun, int):
+            bun = 0
         await e.client.edit_permissions(
             e.chat_id, user.id, until_date=bun, view_messages=False
         )
@@ -331,7 +333,7 @@ async def pin_message(ult):
         return await ult.eor("`Please provide time..`", time=8)
     msg = await ult.eor(get_string("com_1"))
     time = ban_time(msg, match)
-    if not time:
+    if not time or isinstance(time, str):
         return
     msg_id = ult.reply_to_msg_id
     try:
