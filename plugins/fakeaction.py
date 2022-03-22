@@ -56,7 +56,10 @@ async def _(e):
     if t.isdigit():
         t = int(t)
     elif t.endswith(("s", "h", "d", "m")):
-        t = math.ceil((ban_time(e, t)) - time.time())
+        t = ban_time(t)
+        if not isinstance(t, int):
+            return await e.eor(t)
+        t = math.ceil(t - time.time())
     else:
         t = 60
     await e.eor(get_string("fka_1").format(str(t)), time=5)
