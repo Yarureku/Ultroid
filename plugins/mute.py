@@ -126,7 +126,9 @@ async def _(e):
     if userid == ultroid_bot.uid:
         return await xx.eor("`I can't mute myself.`", time=3)
     try:
-        bun = ban_time(xx, tme)
+        bun = ban_time(tme)
+        if not isinstance(bun, int):
+            return await xx.edit(bun)
         await e.client.edit_permissions(
             chat.id,
             userid,
